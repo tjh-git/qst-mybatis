@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--configuration核心配置文件-->
+<configuration>
+	<!--引入外部properties文件  -->
+	<properties resource="druid.properties"/>
+
+	<!--log4j 必须配置-->
+	<settings>
+		<!--STDOUT_LOGGING标准日志输出-->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+
+	<!--别名会导致控制台输出下面的时候 DefaultVFS - Reader entry: ���� 4 O乱码问题-->
+	<typeAliases>
+		<!--可以给实体类起别名-->
+		<!--<typeAlias type="com.User" alias="User"/>-->
+		<!--扫描实体类的包，它的默认别名就为这个类的 类名，首字母小写！-->
+		<package name="com.tjh.pojo"/>
+	</typeAliases>
+
+	<!--DEV环境：DEV顾名思义就是develop，即代码开发的环境。-->
+	<!--SIT环境：System Integration Test系统集成测试，开发人员自己测试流程是否走通。-->
+	<!--UAT环境：User Acceptance Test用户验收测试，由专门的测试人员验证，验收完成才能上生产环境。-->
+	<!--和Spring整合后 environments 配置将废除 -->
+	<environments default="development">
+		<environment id="development">
+			<!--使用JDBC事务管理  -->
+			<transactionManager type="JDBC"/>
+			<!--UNPOOLED:他就代表的是不使用连接池来进行操作;连接的时候创建:结束的时候关闭;-->
+			<!--POOLED:使用连接池-->
+			<!--JNDI:他是应用在ejb的容器中使用-->
+			<!--数据库连接池 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!--每一共Mapper.XML都需要在Mybatis核心配置文件中注册! -->
+	<mappers>
+		<!--xml 对应的是文件-->
+		<!--<mapper resource="com/tjh/mapper/UserMapper.xml"/>-->
+		<!--注解对应的是接口类-->
+		<mapper class="com.tjh.mapper.UserMapper"/>
+	</mappers>
+
+</configuration>
+

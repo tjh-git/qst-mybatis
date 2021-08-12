@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tjh.mapper.UserMapper">
+	<select id="getUserLike" resultType="com.tjh.entity.User" parameterType="string">
+		select * from test.user  where 1=1 and uname like '%${str}%';
+	</select>
+
+	<select id="getUserList" resultType="com.tjh.entity.User">
+		select * from user;
+	</select>
+
+	<insert id="insertUser" parameterType="com.tjh.entity.User">
+		insert into user(uid,uname) values(#{uid},#{uname});
+	</insert>
+
+	<delete id="delUserById" parameterType="int">
+		delete from user where uid = #{uid};
+	</delete>
+
+	<update id="updateUser" parameterType="com.tjh.entity.User">
+		update user set uname=#{uname} where uid=#{uid};
+	</update>
+
+</mapper>
